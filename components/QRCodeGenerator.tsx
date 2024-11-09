@@ -129,14 +129,18 @@ function QRCodeGenerator() {
                 <div className="space-y-2">
                   <Label htmlFor="logo" className="font-bold text-[#8c2f39]"> Logo </Label>
                   <Input type="file" id="logo"  accept="image/*"onChange={(e: any)=> { 
-                    if(e.target.files && e.target.files[0]) {
-                      setLogoFile(e.target.files[0]);
-
+                    if (e.target.files && e.target.files[0]) {
+                      const file = e.target.files[0];
+                      setLogoFile(file);
+  
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setLogo(reader.result as string);
-                        
-                      };reader.readAsDataURL(e.target.files[0]);
+                      };
+                      reader.readAsDataURL(file);
+                    } else {
+                      setLogo(null);
+                      setLogoFile(null);
                     }
                   }} 
                   className="w-full border-2 bg-transparent focus:border-[#b23a48]/80 border-[#fcb9b2] rounded-md outline-none focus-visible:ring-0 placeholder:text-gray-600"></Input>
